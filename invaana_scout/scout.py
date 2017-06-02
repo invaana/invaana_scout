@@ -1,5 +1,5 @@
 from invaana_scout.db import SearchResultLink, SearchEntry
-from browsers import BrowseBing
+from invaana_scout.browsers import BrowseBing
 from invaana_scout.db.utils import get_or_create
 
 
