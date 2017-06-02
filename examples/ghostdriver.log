@@ -1,0 +1,15 @@
+[INFO  - 2017-06-02T15:45:19.691Z] GhostDriver - Main - running on port 54494
+[INFO  - 2017-06-02T15:45:20.530Z] Session [7bce9cc0-47aa-11e7-a9b4-4fc64280356e] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2017-06-02T15:45:20.530Z] Session [7bce9cc0-47aa-11e7-a9b4-4fc64280356e] - page.customHeaders:  - {}
+[INFO  - 2017-06-02T15:45:20.530Z] Session [7bce9cc0-47aa-11e7-a9b4-4fc64280356e] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"mac-unknown-64bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2017-06-02T15:45:20.530Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: 7bce9cc0-47aa-11e7-a9b4-4fc64280356e
+[ERROR - 2017-06-02T15:45:20.540Z] RouterReqHand - _handle.error - {"name":"Missing Command Parameter","message":"{\"headers\":{\"Accept\":\"application/json\",\"Accept-Encoding\":\"identity\",\"Connection\":\"close\",\"Content-Length\":\"66\",\"Content-Type\":\"application/json;charset=UTF-8\",\"Host\":\"127.0.0.1:54494\",\"User-Agent\":\"Python http auth\"},\"httpVersion\":\"1.1\",\"method\":\"POST\",\"post\":\"{\\\"url\\\": null, \\\"sessionId\\\": \\\"7bce9cc0-47aa-11e7-a9b4-4fc64280356e\\\"}\",\"url\":\"/url\",\"urlParsed\":{\"anchor\":\"\",\"query\":\"\",\"file\":\"url\",\"directory\":\"/\",\"path\":\"/url\",\"relative\":\"/url\",\"port\":\"\",\"host\":\"\",\"password\":\"\",\"user\":\"\",\"userInfo\":\"\",\"authority\":\"\",\"protocol\":\"\",\"source\":\"/url\",\"queryKey\":{},\"chunks\":[\"url\"]},\"urlOriginal\":\"/session/7bce9cc0-47aa-11e7-a9b4-4fc64280356e/url\"}","line":511,"sourceURL":"phantomjs://code/session_request_handler.js","stack":"_postUrlCommand@phantomjs://code/session_request_handler.js:511:73\n_handle@phantomjs://code/session_request_handler.js:91:32\n_reroute@phantomjs://code/request_handler.js:61:20\n_handle@phantomjs://code/router_request_handler.js:78:46"}
+
+  phantomjs://platform/console++.js:263 in error
+events.js:160
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: read EIO
+    at exports._errnoException (util.js:1022:11)
+    at TTY.onread (net.js:572:26)
