@@ -9,17 +9,34 @@ class ScoutThis(object):
     
     USAGE:
         from invaana_scout.scout import ScoutThis
+        
+        scout = ScoutThis(kw="MongoDB", generate_kws=True)
+        scout.generated_keywords # ['learning MongoDB', 'Programming with MongoDB', 'MongoDB tutorials' ]
+        scout.run() # this will gather data from all generated keywords and saves it to MongoDB
+        
+        # or
+        
+        scout = ScoutThis(kw="MongoDB")
+        scout.run() # this will gather data and saves it to MongoDB
+        
 
-        scout = ScoutThis(kw="Scientific Innovations")
-        scout.run()
     
     """
     
-    def __init__(self, kw=None, browser='bing', max_pages=3, save=True):
+    def __init__(self, kw=None, browser='bing', max_pages=3, save=True, generate_kws=False):
         self._KEYWORD = kw
         self._BROWSER = browser
+        self._NOW_KEYWORD = kw
         self._MAX_PAGES = max_pages
         self._SAVE = save
+        self._GENERATE_KWS = generate_kws
+        self._SUFFIXES = [
+            'tutorials',
+        ]
+        self._PREFIXES = [
+            'learning', 'Programming with'
+        ]
+        self._GENERATED_KEYWORDS = []
             
     def save(self, data):
         """
@@ -27,7 +44,7 @@ class ScoutThis(object):
         :param data:
         :return:
         """
-        created, entry = get_or_create(SearchEntry, keyword=self._KEYWORD, browser=self._BROWSER)
+        created, entry = get_or_create(SearchEntry, keyword=self._NOW_KEYWORD, browser=self._BROWSER)
         results_mongofied = []
         for result in data['results']:
             created, result_entry = get_or_create(SearchResultLink, title=result['text'], link=result['link'] )
@@ -43,13 +60,36 @@ class ScoutThis(object):
         if len(related_keywords_mongofied)>0:
             entry.update(add_to_set__similar_keywords=related_keywords_mongofied)
 
-    def run(self,):
+    @property
+    def generated_keywords(self):
+        return self._GENERATED_KEYWORDS
+    
+    def _generate_keywords(self):
+        keywords = []
+        for prefix in self._PREFIXES:
+            keywords.append("%s %s" % (prefix, self._KEYWORD))
+    
+        for suffix in self._SUFFIXES:
+            keywords.append("%s %s" % (self._KEYWORD, suffix))
+        return keywords
+
+    def _run(self, kw):
         if self._BROWSER == 'bing':
-            browser = BrowseBing(kw=self._KEYWORD, max_page=self._MAX_PAGES)
+            browser = BrowseBing(kw=kw, max_page=self._MAX_PAGES)
             browser.search()
-            print "Gathered the data for keyword", self._KEYWORD
+            print "Gathered the data for keyword", kw
             if self._SAVE:
-                print "Now saving the data to DB"
+                print "Now saving the keyword [ %s ] data to DB" %kw
                 self.save(browser.data)
         else:
             NotImplementedError("Only bing search is implemented at this moment, contact author for more info")
+            
+    def run(self):
+        if self._GENERATE_KWS:
+            self._GENERATED_KEYWORDS = self._generate_keywords()
+            print "Generated %s keywords for [%s] " %(len(self._GENERATED_KEYWORDS), self._KEYWORD)
+            for kw in self._GENERATED_KEYWORDS:
+                self._NOW_KEYWORD = kw
+                self._run(self._NOW_KEYWORD)
+        else:
+            self._run(self._NOW_KEYWORD)

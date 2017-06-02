@@ -9,8 +9,15 @@
 
 from invaana_scout.scout import ScoutThis
 
-scout = ScoutThis(kw="Scientific Innovations")
+scout = ScoutThis(kw="MongoDB", generate_kws=True)
+scout.generated_keywords # ['learning MongoDB', 'Programming with MongoDB', 'MongoDB tutorials' ] 
+scout.run() # this will gather data from all generated keywords and saves it to MongoDB
+
+# or 
+
+scout = ScoutThis(kw="MongoDB")
 scout.run() # this will gather data and saves it to MongoDB
+
 
 ```
 
