@@ -19,16 +19,23 @@ class BrowserBase(object):
     """
     _AVAILABLE_SCRAPE_METHODS = ['requests', 'selenium']
     _DEFAULT_SCRAPE_METHOD = "selenium"
+
     _BASE_URL = None
     _SEARCH_QS = None
+    _SEARCH_TERM = None
     _SEARCH_URL = None
+
     _HTML_DATA = None
     _SOUPED_HTML_DATA = None
+
     _RESULTS_MAIN = []
     _RESULTS_KEYWORDS = []
+
     _SEARCH_MAIN_CSS_SELECTOR = None
     _SEARCH_KEYWORDS_CSS_SELECTOR = None
-    _SEARCH_TERM = None
+    _SEARCH_NEXT_CSS_SELECTOR = None
+    
+    _NEXT_PAGE_URL = None
     
     def __init__(self, kw=None):
         """
@@ -52,10 +59,10 @@ class BrowserBase(object):
         https://stackoverflow.com/a/18102579/3448851
         :return:
         """
-        # options = webdriver.ChromeOptions()
+        options = webdriver.ChromeOptions()
         # options.add_argument("--headless")
         # with contextlib.closing(webdriver.Chrome(chrome_options=options)) as driver:
-        with contextlib.closing(webdriver.Chrome()) as driver:
+        with contextlib.closing(webdriver.Chrome(chrome_options=options)) as driver:
             driver.get(url=self._SEARCH_URL)
             return driver.page_source
     
@@ -115,7 +122,8 @@ class BrowserBase(object):
             'results': self._RESULTS_MAIN,
             'results_count': len(self._RESULTS_MAIN),
             'related_keywords': self._RESULTS_KEYWORDS,
-            'related_keywords_count': len(self._RESULTS_KEYWORDS)
+            'related_keywords_count': len(self._RESULTS_KEYWORDS),
+            'next_url': self._get_next_page()
         }
 
     def _scrape_css_selector(self, selector=None):
@@ -128,16 +136,20 @@ class BrowserBase(object):
             }
             data.append(datum)
         return data
+    
+    def _get_next_page(self):
+        """
+        :return:
+        """
+        self._NEXT_PAGE_URL = self._SOUPED_HTML_DATA.cssselect(self._SEARCH_NEXT_CSS_SELECTOR)
+        print  self._NEXT_PAGE_URL
+        return
+
         
+        pass
     def get_search_results(self):
         return self._scrape_css_selector(self._SEARCH_MAIN_CSS_SELECTOR)
     
     def get_related_keywords(self):
         return self._scrape_css_selector(self._SEARCH_KEYWORDS_CSS_SELECTOR)
 
-    def get_page(self, page_no=None):
-        """
-        Get the number of page result
-        :return:
-        """
-        pass
