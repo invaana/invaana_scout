@@ -10,7 +10,7 @@
 from invaana_scout.scout import ScoutThis
 
 scout = ScoutThis(kw="Scientific Innovations")
-scout.run()
+scout.run() # this will gather data and saves it to MongoDB
 
 ```
 
