@@ -5,6 +5,7 @@ import lxml.html
 from . import exceptions
 import logging
 
+
 class BrowserBase(object):
     """
     Base class for making new browser classes like BingBrowser, GoogleBrowser, DuckDuckGoBrowser etc
@@ -19,7 +20,7 @@ class BrowserBase(object):
     _AVAILABLE_SCRAPE_METHODS = ['requests', 'selenium']
     _DEFAULT_SCRAPE_METHOD = "selenium"
     _BASE_URL = None
-    _SEARCH_QS = '/search?q='
+    _SEARCH_QS = None
     _SEARCH_URL = None
     _HTML_DATA = None
     _SOUPED_HTML_DATA = None
@@ -51,9 +52,10 @@ class BrowserBase(object):
         https://stackoverflow.com/a/18102579/3448851
         :return:
         """
-        options = webdriver.ChromeOptions()
+        # options = webdriver.ChromeOptions()
         # options.add_argument("--headless")
-        with contextlib.closing(webdriver.Chrome(chrome_options=options)) as driver:
+        # with contextlib.closing(webdriver.Chrome(chrome_options=options)) as driver:
+        with contextlib.closing(webdriver.Chrome()) as driver:
             driver.get(url=self._SEARCH_URL)
             return driver.page_source
     
