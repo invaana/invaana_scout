@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to Invaana Scout’s documentation! &mdash; Invaana Scout  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Invaana Scout  documentation" href="#"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> Invaana Scout
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to Invaana Scout’s documentation!</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Invaana Scout</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Welcome to Invaana Scout’s documentation!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-invaana-scout-s-documentation">
+<h1>Welcome to Invaana Scout’s documentation!<a class="headerlink" href="#welcome-to-invaana-scout-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<dl class="class">
+<dt id="invaana_scout.scout.ScoutThis">
+<em class="property">class </em><code class="descclassname">invaana_scout.scout.</code><code class="descname">ScoutThis</code><span class="sig-paren">(</span><em>kw=None</em>, <em>browser=’bing’</em>, <em>max_pages=3</em>, <em>save=True</em>, <em>generate_kws=False</em><span class="sig-paren">)</span><a class="headerlink" href="#invaana_scout.scout.ScoutThis" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will run a browser search and saves the data to the MongoDB</p>
+<dl class="docutils">
+<dt>USAGE:</dt>
+<dd><p class="first">from invaana_scout.scout import ScoutThis</p>
+<p>scout = ScoutThis(kw=”MongoDB”, generate_kws=True)
+scout.generated_keywords # [‘learning MongoDB’, ‘Programming with MongoDB’, ‘MongoDB tutorials’ ]
+scout.run() # this will gather data from all generated keywords and saves it to MongoDB</p>
+<p># or</p>
+<p class="last">scout = ScoutThis(kw=”MongoDB”)
+scout.run() # this will gather data and saves it to MongoDB</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="invaana_scout.scout.ScoutThis.run">
+<code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#invaana_scout.scout.ScoutThis.run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Runs the data gathering jobs -</dt>
+<dd><strong>if self._GENERATE_KWS == True:</strong> new keywords will be generated based on the prefixes, and suffixes is
+True, it will iterate through each keyword and gathers the information <strong>else:</strong> single keyword
+provided to the __init__() will be used and gathered data.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="invaana_scout.scout.ScoutThis.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#invaana_scout.scout.ScoutThis.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves this to DB (MongoDB) for now
+:param data:
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="invaana_scout.browsers.BrowseBing">
+<em class="property">class </em><code class="descclassname">invaana_scout.browsers.</code><code class="descname">BrowseBing</code><span class="sig-paren">(</span><em>kw=None</em>, <em>max_page=5</em><span class="sig-paren">)</span><a class="headerlink" href="#invaana_scout.browsers.BrowseBing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Does the browsing tasks on bing.com</p>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>from invaana_scout.browsers.bing import BrowseBing
+bing = BrowseBing(kw=”invaana”, max_page=3)
+bing.search()</dd>
+</dl>
+</dd></dl>
+
+<dl class="class">
+<dt id="invaana_scout.browsers.base.BrowserBase">
+<em class="property">class </em><code class="descclassname">invaana_scout.browsers.base.</code><code class="descname">BrowserBase</code><span class="sig-paren">(</span><em>kw=None</em>, <em>max_page=None</em><span class="sig-paren">)</span><a class="headerlink" href="#invaana_scout.browsers.base.BrowserBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for making new browser classes like BingBrowser, GoogleBrowser, DuckDuckGoBrowser etc</p>
+<dl class="docutils">
+<dt>USAGE:</dt>
+<dd>_BASE_URL : <a class="reference external" href="https://www.bing.com">https://www.bing.com</a> # this should be changed for each Child class
+_PHANTOMJS_PATH : #phantomjs binary path
+_DEFAULT_METHOD : #default method used to scrape ? selenium or python requests</dd>
+</dl>
+<dl class="method">
+<dt id="invaana_scout.browsers.base.BrowserBase.dry_run">
+<code class="descname">dry_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#invaana_scout.browsers.base.BrowserBase.dry_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>This will run a dry run with plain python requests, and check if requests is good enough,
+and if there is some issue, the driver will be switched to Selenium
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="invaana_scout.browsers.base.BrowserBase.get_current_method">
+<code class="descname">get_current_method</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#invaana_scout.browsers.base.BrowserBase.get_current_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current Browser driver being used by this class (requests or selenium)
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="invaana_scout.browsers.base.BrowserBase.get_html_selenium">
+<code class="descname">get_html_selenium</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#invaana_scout.browsers.base.BrowserBase.get_html_selenium" title="Permalink to this definition">¶</a></dt>
+<dd><p><a class="reference external" href="https://stackoverflow.com/a/18102579/3448851">https://stackoverflow.com/a/18102579/3448851</a>
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="invaana_scout.browsers.base.BrowserBase.search">
+<code class="descname">search</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#invaana_scout.browsers.base.BrowserBase.search" title="Permalink to this definition">¶</a></dt>
+<dd><ol class="arabic simple">
+<li>Perform a dry run</li>
+<li>shift _DEFAULT_SCRAPE_METHOD if needed</li>
+<li>get results</li>
+</ol>
+</dd></dl>
+
+<dl class="method">
+<dt id="invaana_scout.browsers.base.BrowserBase.shift_method">
+<code class="descname">shift_method</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#invaana_scout.browsers.base.BrowserBase.shift_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>swaps the current method to other method. If python requests is current method, it will shift to next one, which is
+selenium
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Ravi RT Merugu.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -85,6 +85,15 @@ class ScoutThis(object):
             NotImplementedError("Only bing search is implemented at this moment, contact author for more info")
             
     def run(self):
+        """
+        Runs the data gathering jobs -
+            **if self._GENERATE_KWS == True:** new keywords will be generated based on the prefixes, and suffixes is
+            True, it will iterate through each keyword and gathers the information **else:** single keyword
+            provided to the __init__() will be used and gathered data.
+            
+        :return:
+        
+        """
         if self._GENERATE_KWS:
             self._GENERATED_KEYWORDS = self._generate_keywords()
             print "Generated %s keywords for [%s] " %(len(self._GENERATED_KEYWORDS), self._KEYWORD)

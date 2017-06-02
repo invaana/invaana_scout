@@ -6,8 +6,6 @@ from . import exceptions
 import logging
 
 
-
-
 class BrowserBase(object):
     """
     Base class for making new browser classes like BingBrowser, GoogleBrowser, DuckDuckGoBrowser etc
