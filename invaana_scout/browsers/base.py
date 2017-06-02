@@ -21,7 +21,6 @@ class BrowserBase(object):
     """
     _CHROME_DRIVER_PATH = '/usr/local/bin/chromedriver'
 
-    
     _AVAILABLE_SCRAPE_METHODS = ['requests', 'selenium']
     _DEFAULT_SCRAPE_METHOD = "selenium"
 
@@ -53,7 +52,6 @@ class BrowserBase(object):
         if max_page:
             self._ITER_MAX = max_page
 
-            
     def _test_config(self):
         """
         this will check the inputs and executables being in place
@@ -70,9 +68,9 @@ class BrowserBase(object):
         :return:
         """
         options = webdriver.ChromeOptions()
-        # options.add_argument("--headless")
+        options.add_argument("--headless")
         # with contextlib.closing(webdriver.Chrome(chrome_options=options)) as driver:
-        with contextlib.closing(webdriver.Chrome(self._CHROME_DRIVER_PATH)) as driver:
+        with contextlib.closing(webdriver.Chrome(self._CHROME_DRIVER_PATH, chrome_options=options)) as driver:
             driver.get(url=self._SEARCH_URL)
             return driver.page_source
     
