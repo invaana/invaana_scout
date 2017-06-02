@@ -62,7 +62,7 @@ class BrowserBase(object):
         options = webdriver.ChromeOptions()
         # options.add_argument("--headless")
         # with contextlib.closing(webdriver.Chrome(chrome_options=options)) as driver:
-        with contextlib.closing(webdriver.Chrome(chrome_options=options)) as driver:
+        with contextlib.closing(webdriver.Chrome()) as driver:
             driver.get(url=self._SEARCH_URL)
             return driver.page_source
     
@@ -101,7 +101,7 @@ class BrowserBase(object):
         index = self._AVAILABLE_SCRAPE_METHODS.index(self._DEFAULT_SCRAPE_METHOD)
         self._DEFAULT_SCRAPE_METHOD = self._AVAILABLE_SCRAPE_METHODS[index+1]
     
-    def search(self):
+    def search(self, page=0):
         """
          1. Perform a dry run
          2. shift _DEFAULT_SCRAPE_METHOD if needed
@@ -114,6 +114,7 @@ class BrowserBase(object):
         self._SOUPED_HTML_DATA = self._soup_data()
         self._RESULTS_MAIN = self.get_search_results()
         self._RESULTS_KEYWORDS = self.get_related_keywords()
+        self._NEXT_PAGE_URL = self._get_next_page()
         return self.data
         
     @property
@@ -123,7 +124,7 @@ class BrowserBase(object):
             'results_count': len(self._RESULTS_MAIN),
             'related_keywords': self._RESULTS_KEYWORDS,
             'related_keywords_count': len(self._RESULTS_KEYWORDS),
-            'next_url': self._get_next_page()
+            'next_url': self._NEXT_PAGE_URL
         }
 
     def _scrape_css_selector(self, selector=None):
@@ -141,12 +142,13 @@ class BrowserBase(object):
         """
         :return:
         """
-        self._NEXT_PAGE_URL = self._SOUPED_HTML_DATA.cssselect(self._SEARCH_NEXT_CSS_SELECTOR)
-        print  self._NEXT_PAGE_URL
-        return
-
+        el = self._SOUPED_HTML_DATA.cssselect(self._SEARCH_NEXT_CSS_SELECTOR)
+        el = el[0] if el else None
+        if el:
+            return self._BASE_URL + el.get('href').strip() if el.get('href') else ''
+        else:
+            return ''
         
-        pass
     def get_search_results(self):
         return self._scrape_css_selector(self._SEARCH_MAIN_CSS_SELECTOR)
     
