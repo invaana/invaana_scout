@@ -52,7 +52,7 @@ class BrowserBase(object):
         :return:
         """
         options = webdriver.ChromeOptions()
-        options.add_argument('headless')
+        # options.add_argument("--headless")
         with contextlib.closing(webdriver.Chrome(chrome_options=options)) as driver:
             driver.get(url=self._SEARCH_URL)
             return driver.page_source
