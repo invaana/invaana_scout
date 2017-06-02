@@ -51,7 +51,9 @@ class BrowserBase(object):
         https://stackoverflow.com/a/18102579/3448851
         :return:
         """
-        with contextlib.closing(webdriver.Chrome()) as driver:
+        options = webdriver.ChromeOptions()
+        options.add_argument('headless')
+        with contextlib.closing(webdriver.Chrome(chrome_options=options)) as driver:
             driver.get(url=self._SEARCH_URL)
             return driver.page_source
     
@@ -97,7 +99,7 @@ class BrowserBase(object):
          3. get results
          """
         self._SEARCH_URL = self._BASE_URL + self._SEARCH_QS + self._SEARCH_TERM
-        # self.dry_run()
+        self.dry_run()
         self._test_config()
         self._HTML_DATA = self.get_html()
         self._SOUPED_HTML_DATA = self._soup_data()
