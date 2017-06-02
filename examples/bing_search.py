@@ -5,5 +5,6 @@ sys.path.append(SCOUT_PATH)
 
 
 from invaana_scout.browsers.bing import BrowseBing, BrowserBase
-bing = BrowseBing(kw="invaana")
-print bing.search()
+bing = BrowseBing(kw="invaana", max_page=3)
+bing.search()
+print bing.data

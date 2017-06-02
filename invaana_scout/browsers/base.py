@@ -1,9 +1,11 @@
 import contextlib
 import selenium.webdriver as webdriver
-import lxml, os
+import lxml, os, subprocess
 import lxml.html
 from . import exceptions
 import logging
+
+
 
 
 class BrowserBase(object):
@@ -17,6 +19,9 @@ class BrowserBase(object):
         _DEFAULT_METHOD : #default method used to scrape ? selenium or python requests
         
     """
+    _CHROME_DRIVER_PATH = '/usr/local/bin/chromedriver'
+
+    
     _AVAILABLE_SCRAPE_METHODS = ['requests', 'selenium']
     _DEFAULT_SCRAPE_METHOD = "selenium"
 
@@ -37,11 +42,16 @@ class BrowserBase(object):
     
     _NEXT_PAGE_URL = None
     
-    def __init__(self, kw=None):
+    _ITER = 0
+    _ITER_MAX = 10
+        
+    def __init__(self, kw=None, max_page=None):
         """
         Make some quick calculations to proceed with the run
         """
         self._SEARCH_TERM = kw
+        if max_page:
+            self._ITER_MAX = max_page
 
             
     def _test_config(self):
@@ -62,7 +72,7 @@ class BrowserBase(object):
         options = webdriver.ChromeOptions()
         # options.add_argument("--headless")
         # with contextlib.closing(webdriver.Chrome(chrome_options=options)) as driver:
-        with contextlib.closing(webdriver.Chrome()) as driver:
+        with contextlib.closing(webdriver.Chrome(self._CHROME_DRIVER_PATH)) as driver:
             driver.get(url=self._SEARCH_URL)
             return driver.page_source
     
@@ -101,22 +111,27 @@ class BrowserBase(object):
         index = self._AVAILABLE_SCRAPE_METHODS.index(self._DEFAULT_SCRAPE_METHOD)
         self._DEFAULT_SCRAPE_METHOD = self._AVAILABLE_SCRAPE_METHODS[index+1]
     
-    def search(self, page=0):
+    def search(self):
         """
          1. Perform a dry run
          2. shift _DEFAULT_SCRAPE_METHOD if needed
          3. get results
          """
-        self._SEARCH_URL = self._BASE_URL + self._SEARCH_QS + self._SEARCH_TERM
+        if self._ITER == 0:
+            self._SEARCH_URL = self._BASE_URL + self._SEARCH_QS + self._SEARCH_TERM
         self.dry_run()
         self._test_config()
         self._HTML_DATA = self.get_html()
         self._SOUPED_HTML_DATA = self._soup_data()
-        self._RESULTS_MAIN = self.get_search_results()
-        self._RESULTS_KEYWORDS = self.get_related_keywords()
+        self._RESULTS_MAIN += self.get_search_results()
+        self._RESULTS_KEYWORDS += self.get_related_keywords()
         self._NEXT_PAGE_URL = self._get_next_page()
-        return self.data
         
+        if self._NEXT_PAGE_URL and self._ITER < self._ITER_MAX:
+            self._ITER += 1
+            self.search()
+        
+    
     @property
     def data(self):
         return {
@@ -143,11 +158,11 @@ class BrowserBase(object):
         :return:
         """
         el = self._SOUPED_HTML_DATA.cssselect(self._SEARCH_NEXT_CSS_SELECTOR)
-        el = el[0] if el else None
-        if el:
-            return self._BASE_URL + el.get('href').strip() if el.get('href') else ''
+        if len(el) >= 1:
+            el = el[0]
+            return self._BASE_URL + el.get('href').strip()
         else:
-            return ''
+            return None
         
     def get_search_results(self):
         return self._scrape_css_selector(self._SEARCH_MAIN_CSS_SELECTOR)

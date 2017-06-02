@@ -4,6 +4,12 @@ from .base import BrowserBase
 class BrowseBing(BrowserBase):
     """
     Does the browsing tasks on bing.com
+    
+    Usage:
+        from invaana_scout.browsers.bing import BrowseBing
+        bing = BrowseBing(kw="invaana", max_page=3)
+        bing.search()
+    
     """
     _BASE_URL = 'https://www.bing.com'
     _SEARCH_QS = '/search?q='
@@ -12,5 +18,5 @@ class BrowseBing(BrowserBase):
     _SEARCH_NEXT_QS = '&first='
     _SEARCH_NEXT_CSS_SELECTOR = 'a.sb_pagN'
     
-    def __init__(self, kw=None):
-        super(BrowseBing, self).__init__(kw=kw)
+    def __init__(self, kw=None, max_page=3):
+        super(BrowseBing, self).__init__(kw=kw, max_page=max_page)
