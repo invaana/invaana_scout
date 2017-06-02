@@ -18,5 +18,5 @@ class BrowseBing(BrowserBase):
     _SEARCH_NEXT_QS = '&first='
     _SEARCH_NEXT_CSS_SELECTOR = 'a.sb_pagN'
     
-    def __init__(self, kw=None, max_page=3):
+    def __init__(self, kw=None, max_page=5):
         super(BrowseBing, self).__init__(kw=kw, max_page=max_page)

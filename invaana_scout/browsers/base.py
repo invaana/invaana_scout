@@ -42,7 +42,7 @@ class BrowserBase(object):
     _NEXT_PAGE_URL = None
     
     _ITER = 0
-    _ITER_MAX = 10
+    _ITER_MAX = 5
         
     def __init__(self, kw=None, max_page=None):
         """
@@ -70,7 +70,7 @@ class BrowserBase(object):
         options = webdriver.ChromeOptions()
         options.add_argument("--headless")
         # with contextlib.closing(webdriver.Chrome(chrome_options=options)) as driver:
-        with contextlib.closing(webdriver.Chrome(self._CHROME_DRIVER_PATH, chrome_options=options)) as driver:
+        with contextlib.closing(webdriver.Chrome(self._CHROME_DRIVER_PATH)) as driver:
             driver.get(url=self._SEARCH_URL)
             return driver.page_source
     
@@ -129,7 +129,6 @@ class BrowserBase(object):
             self._ITER += 1
             self.search()
         
-    
     @property
     def data(self):
         return {
