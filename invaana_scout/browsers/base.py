@@ -129,8 +129,11 @@ class BrowserBase(object):
         
     @property
     def data(self):
+        # make the data unique
+        self._RESULTS_MAIN = [dict(y) for y in set(tuple(x.items()) for x in self._RESULTS_MAIN)]
+        self._RESULTS_KEYWORDS = [dict(y) for y in set(tuple(x.items()) for x in self._RESULTS_KEYWORDS)]
         return {
-            'results': self._RESULTS_MAIN,
+            'results': self._RESULTS_MAIN ,
             'results_count': len(self._RESULTS_MAIN),
             'related_keywords': self._RESULTS_KEYWORDS,
             'related_keywords_count': len(self._RESULTS_KEYWORDS),
