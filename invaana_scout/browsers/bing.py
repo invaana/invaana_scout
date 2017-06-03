@@ -12,13 +12,13 @@ class BrowseBing(BrowserBase):
         bing.data # returns the data
     
     """
-    _BASE_URL = 'https://www.bing.com'
-    _SEARCH_QS = '/search?q='
-    _SEARCH_MAIN_CSS_SELECTOR = '.b_algo h2 a'
-    _SEARCH_KEYWORDS_CSS_SELECTOR = '.b_rs a'
-    _SEARCH_NEXT_QS = '&first='
-    _SEARCH_NEXT_CSS_SELECTOR = 'a.sb_pagN'
-    _DEFAULT_SCRAPE_METHOD = "selenium"
-
     def __init__(self, kw=None, max_page=3, method=None, driver=None):
         super(BrowseBing, self).__init__(kw=kw, max_page=max_page, method=method, driver=driver)
+
+        self._BASE_URL = 'https://www.bing.com'
+        self._SEARCH_QS = '/search?q='
+        self._SEARCH_MAIN_CSS_SELECTOR = '.b_algo h2 a'
+        self._SEARCH_KEYWORDS_CSS_SELECTOR = '.b_rs a'
+        self._SEARCH_NEXT_QS = '&first='
+        self._SEARCH_NEXT_CSS_SELECTOR = 'a.sb_pagN'
+        self._DEFAULT_SCRAPE_METHOD = "selenium"

@@ -19,35 +19,34 @@ class BrowserBase(object):
         
     """
 
-    _AVAILABLE_SCRAPE_METHODS = [ 'selenium']
-    _DEFAULT_SCRAPE_METHOD = "selenium"
-
-    _BASE_URL = None
-    _SEARCH_QS = None
-    _SEARCH_TERM = None
-    _SEARCH_URL = None
-
-    _HTML_DATA = None
-    _SOUPED_HTML_DATA = None
-
-    _RESULTS_MAIN = []
-    _RESULTS_KEYWORDS = []
-
-    _SEARCH_MAIN_CSS_SELECTOR = None
-    _SEARCH_KEYWORDS_CSS_SELECTOR = None
-    _SEARCH_NEXT_CSS_SELECTOR = None
-    
-    _NEXT_PAGE_URL = None
-    
-    _ITER = 0
-    _ITER_MAX = 3
-
-    _DRIVER = None
-        
     def __init__(self, kw=None, max_page=None, method=None, driver=None):
         """
         Make some quick calculations to proceed with the run
         """
+
+        self._AVAILABLE_SCRAPE_METHODS = ['selenium']
+        self._DEFAULT_SCRAPE_METHOD = "selenium"
+
+        self._BASE_URL = None
+        self._SEARCH_QS = None
+        self._SEARCH_TERM = None
+        self._SEARCH_URL = None
+
+        self._HTML_DATA = None
+        self._SOUPED_HTML_DATA = None
+
+        self._RESULTS_MAIN = []
+        self._RESULTS_KEYWORDS = []
+
+        self._SEARCH_MAIN_CSS_SELECTOR = None
+        self._SEARCH_KEYWORDS_CSS_SELECTOR = None
+        self._SEARCH_NEXT_CSS_SELECTOR = None
+
+        self._NEXT_PAGE_URL = None
+
+        self._ITER = 0
+        self._ITER_MAX = 3
+        
         self._SEARCH_TERM = kw
         if max_page:
             self._ITER_MAX = max_page
