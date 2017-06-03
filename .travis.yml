@@ -17,6 +17,8 @@ before_install:
    - mongo --eval "printjson(db.serverStatus())"
    - mongo --eval 'db.adminCommand({setParameter:true, textSearchEnabled:true})' #http://stackoverflow.com/a/20673005/3448851
    - java -jar selenium/selenium-server-standalone-3.4.0.jar  -port 4444 > /dev/null &
+   - /sbin/start-stop-daemon --start --background --exec java -jar selenium/selenium-server-standalone-3.4.0.jar  -port 4444
+
 
 cache: pip
 
