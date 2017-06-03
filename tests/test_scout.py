@@ -15,13 +15,13 @@ def test_scout():
 
 def test_scout_browser():
     
-    scout = ScoutThis(kw="Ravi RT Merugu", max_pages=1, browser="notbing")
+    scout = ScoutThis(kw="Ravi RT Merugu", max_pages=1, browser="notbinga")
     
     with pytest.raises(NotImplementedError) as excinfo:
         scout.run()
-    assert "Not implemented" in str(excinfo)
+    assert "Only bing search is implemented at this moment" in str(excinfo)
     
     
 def test_keyword_generation():
     scout = ScoutThis(kw="Django", suffixes=['tutorials',], prefixes=['programming with',])
-    assert scout.generated_keywords == ['Django tutorials', 'programming with Django']
+    assert scout.generated_keywords == ['programming with Django', 'Django tutorials' ]

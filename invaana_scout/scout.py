@@ -36,7 +36,6 @@ class ScoutThis(object):
         self._MAX_PAGES = max_pages
         self._SAVE = save
         self._GENERATE_KWS = generate_kws
-
         self._GENERATED_KEYWORDS = []
         self._DATA = {
             'results': [],
@@ -47,6 +46,8 @@ class ScoutThis(object):
             'search_kw_generated': []
         
         }
+        if prefixes: self._PREFIXES = prefixes
+        if suffixes: self._SUFFIXES = suffixes
             
     def save(self, data):
         """
@@ -72,8 +73,10 @@ class ScoutThis(object):
 
     @property
     def generated_keywords(self):
+        if len(self._GENERATED_KEYWORDS) == 0:
+            self._GENERATED_KEYWORDS = self._generate_keywords()
         return self._GENERATED_KEYWORDS
-    
+        
     @property
     def data(self):
         return self._DATA
@@ -93,7 +96,7 @@ class ScoutThis(object):
         self._DATA['related_keywords_count'] += data['related_keywords_count']
         self._DATA['results_count'] += data['results_count']
         self._DATA['search_kw'] = self._KEYWORD
-        self._DATA['search_kw_generated'] = self._GENERATED_KEYWORDS
+        self._DATA['search_kw_generated'] = self.generated_keywords
         
     def _run(self, kw):
         if self._BROWSER == 'bing':
@@ -105,7 +108,7 @@ class ScoutThis(object):
                 print "Now saving the keyword [ %s ] data to DB" %kw
                 self.save(browser.data)
         else:
-            NotImplementedError("Only bing search is implemented at this moment, contact author for more info")
+            raise NotImplementedError("Only bing search is implemented at this moment, contact author for more info")
             
     def run(self):
         """
@@ -118,7 +121,7 @@ class ScoutThis(object):
         
         """
         if self._GENERATE_KWS:
-            self._GENERATED_KEYWORDS = self._generate_keywords()
+            self._GENERATED_KEYWORDS = self.generated_keywords
             print "Generated %s keywords for [%s] " %(len(self._GENERATED_KEYWORDS), self._KEYWORD)
             for kw in self._GENERATED_KEYWORDS:
                 self._NOW_KEYWORD = kw
