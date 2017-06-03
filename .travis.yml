@@ -16,8 +16,6 @@ before_install:
    - sleep 5
    - mongo --eval "printjson(db.serverStatus())"
    - mongo --eval 'db.adminCommand({setParameter:true, textSearchEnabled:true})' #http://stackoverflow.com/a/20673005/3448851
-   - docker pull redis:latest
-   - docker run -d redis
 
 cache: pip
 

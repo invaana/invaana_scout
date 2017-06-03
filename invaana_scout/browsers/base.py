@@ -1,8 +1,9 @@
 import contextlib
 import selenium.webdriver as webdriver
-import lxml, os, subprocess
+import lxml
 import lxml.html
 from . import exceptions
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import logging
 
 
@@ -17,7 +18,6 @@ class BrowserBase(object):
         _DEFAULT_METHOD : #default method used to scrape ? selenium or python requests
         
     """
-    _CHROME_DRIVER_PATH = '/usr/local/bin/chromedriver'
 
     _AVAILABLE_SCRAPE_METHODS = ['requests', 'selenium']
     _DEFAULT_SCRAPE_METHOD = "selenium"
@@ -49,6 +49,8 @@ class BrowserBase(object):
         self._SEARCH_TERM = kw
         if max_page:
             self._ITER_MAX = max_page
+            
+        self._init_browser_instance()
 
     def _test_config(self):
         """
@@ -60,17 +62,17 @@ class BrowserBase(object):
     def _soup_data(self):
          return lxml.html.fromstring(self._HTML_DATA)
     
+    def _init_browser_instance(self):
+        self._DRIVER = webdriver.Remote(command_executor='http://127.0.0.1:4444/wd/hub',
+                                        desired_capabilities=DesiredCapabilities.CHROME)
+    
     def get_html_selenium(self):
         """
         https://stackoverflow.com/a/18102579/3448851
         :return:
         """
-        options = webdriver.ChromeOptions()
-        options.add_argument("--headless")
-        # with contextlib.closing(webdriver.Chrome(chrome_options=options)) as driver:
-        with contextlib.closing(webdriver.Chrome(self._CHROME_DRIVER_PATH)) as driver:
-            driver.get(url=self._SEARCH_URL)
-            return driver.page_source
+        self._DRIVER.get(url=self._SEARCH_URL)
+        return self._DRIVER.page_source
     
     def get_html_requests(self):
         pass
