@@ -11,6 +11,7 @@ angular.module('InvaanaScoutApp', [])
 
 
     $scope.submitQuery = function(){
+        $scope.results_data = null;
         console.log("im about to make a query");
 
         $http.get('http://localhost:5000/apis/browse/', {

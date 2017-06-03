@@ -34,11 +34,12 @@ def browse():
         
     :return:
     """
-    kw = request.args.get('q', '')
-    bing = BrowseBing(kw=kw, max_page=2)
-    bing.search()
-    return jsonify(bing.data)
-
+    kw = request.args.get('q', None)
+    if kw:
+        bing = BrowseBing(kw=kw, max_page=2)
+        bing.search()
+        return jsonify(bing.data)
+    return {}
 
 if __name__ == "__main__":
     app.run(debug=True)

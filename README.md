@@ -1,6 +1,8 @@
 # Invaana Scout
 
 
+![Screenshot](docs/screenshot.png)
+
 
 
 ## Usage
