@@ -1,2 +1,5 @@
 venv/
 node_modules/
+.tox
+.coverage
+invaana_scout.egg-info

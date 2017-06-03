@@ -23,6 +23,9 @@ scout.run() # this will gather data and saves it to MongoDB
 
 ```
 
+The UI server is not an integral part of the project, it's just a component that visually shows the power of 
+the scout module
+
 
 ## Requirements
 
