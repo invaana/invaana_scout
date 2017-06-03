@@ -1,1 +1,1 @@
-from bing import BrowseBing
+from .bing import BrowseBing

@@ -1,0 +1,12 @@
+.form-control{
+    border-radius: 1px;
+}
+
+.btn{
+    border-radius: 1px;
+}
+h1{
+    text-align: center;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+}

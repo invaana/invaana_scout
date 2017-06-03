@@ -9,6 +9,7 @@ class BrowseBing(BrowserBase):
         from invaana_scout.browsers.bing import BrowseBing
         bing = BrowseBing(kw="invaana", max_page=3)
         bing.search()
+        bing.data # returns the data
     
     """
     _BASE_URL = 'https://www.bing.com'

@@ -142,7 +142,7 @@ class BrowserBase(object):
         data = []
         for result in results:
             datum = {
-                'link': result.get('href').strip() if result.get('href') else None,
+                'link': self._BASE_URL + result.get('href').strip() if result.get('href') else None,
                 'text': result.text_content().strip() if result.text_content() else None
             }
             data.append(datum)
