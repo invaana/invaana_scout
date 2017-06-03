@@ -5,6 +5,7 @@ sys.path.append(SCOUT_PATH)
 from flask import Flask, render_template, request, jsonify
 from flask_mongoengine import MongoEngine
 from browsers.bing import BrowseBing
+from scout import ScoutThis
 
 app = Flask(__name__)
 app.config['MONGODB_SETTINGS'] = {
@@ -36,9 +37,9 @@ def browse():
     """
     kw = request.args.get('q', None)
     if kw:
-        bing = BrowseBing(kw=kw, max_page=2)
-        bing.search()
-        return jsonify(bing.data)
+        scout_instance = ScoutThis(kw=kw, generate_kws=False)
+        scout_instance.run()
+        return jsonify(scout_instance.data)
     return {}
 
 if __name__ == "__main__":

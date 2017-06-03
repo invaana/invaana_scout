@@ -1,14 +1,5 @@
-//angular.module('InvaanaScoutApp', [], function($interpolateProvider) {
-//            $interpolateProvider.startSymbol('[{');
-//            $interpolateProvider.endSymbol('}]');
-//});
-
-
 angular.module('InvaanaScoutApp', [])
   .controller('baseController', function($scope, $http) {
-
-    console.log("Hello World! ");
-
 
     $scope.submitQuery = function(){
         $scope.results_data = null;

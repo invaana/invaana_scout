@@ -1,6 +1,6 @@
-from invaana_scout.db import SearchResultLink, SearchEntry
-from invaana_scout.browsers import BrowseBing
-from invaana_scout.db.utils import get_or_create
+from db import SearchResultLink, SearchEntry
+from browsers import BrowseBing
+from db.utils import get_or_create
 
 
 class ScoutThis(object):
@@ -37,6 +37,15 @@ class ScoutThis(object):
             'learning', 'Programming with'
         ]
         self._GENERATED_KEYWORDS = []
+        self._DATA = {
+            'results': [],
+            'results_count': 0,
+            'related_keywords' : [],
+            'related_keywords_count' : 0,
+            'search_kw': '',
+            'search_kw_generated': []
+        
+        }
             
     def save(self, data):
         """
@@ -64,6 +73,10 @@ class ScoutThis(object):
     def generated_keywords(self):
         return self._GENERATED_KEYWORDS
     
+    @property
+    def data(self):
+        return self._DATA
+    
     def _generate_keywords(self):
         keywords = []
         for prefix in self._PREFIXES:
@@ -73,11 +86,20 @@ class ScoutThis(object):
             keywords.append("%s %s" % (self._KEYWORD, suffix))
         return keywords
 
+    def _append_data(self, data):
+        self._DATA['results'] += data['results']
+        self._DATA['related_keywords'] += data['related_keywords']
+        self._DATA['related_keywords_count'] += data['related_keywords_count']
+        self._DATA['results_count'] += data['results_count']
+        self._DATA['search_kw'] = self._KEYWORD
+        self._DATA['search_kw_generated'] = self._GENERATED_KEYWORDS
+        
     def _run(self, kw):
         if self._BROWSER == 'bing':
             browser = BrowseBing(kw=kw, max_page=self._MAX_PAGES)
             browser.search()
             print "Gathered the data for keyword", kw
+            self._append_data(browser.data)
             if self._SAVE:
                 print "Now saving the keyword [ %s ] data to DB" %kw
                 self.save(browser.data)
