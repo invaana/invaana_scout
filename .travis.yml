@@ -8,7 +8,8 @@ python:
 dist: trusty
 services:
    - docker
-
+addons:
+  chrome: stable
 
 before_install:
    - docker pull mongo:latest
@@ -23,11 +24,9 @@ before_install:
    - sudo apt-get install -y libappindicator1 fonts-liberation
    - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
    - sudo dpkg -i google-chrome*.deb
-   - java -jar selenium/selenium-server-standalone-3.4.0.jar
-
-
-
-
+   - java -jar selenium/selenium-server-standalone-3.4.0.jar  -port 4444 > /dev/null &
+   #- # start your web application and listen on `localhost`
+   #- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost
 
 cache: pip
 
