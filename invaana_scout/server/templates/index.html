@@ -23,14 +23,23 @@
                   </span>
                 </div><!-- /input-group -->
             </form>
+            {% raw %}
+            <ul class="list-inline" ng-if="results_data.related_keywords_count">
+                <li><strong>Related:</strong></li>
+                <li ng-repeat="result in results_data.related_keywords | limitTo:5" class="text-muted">
+                    {{result.text}}
+                </li>
+            </ul>
+            <p ng-if="results_data" class="text-muted small">Gathered {{results_data.results_count}} results</p>
+            {% endraw %}
         </div>
 
     </div>
     <div class="row" ng-if="results_data">
         <div class="col-md-8" >
-            {% raw %}
-            <h3>Results - {{results_data.results_count}}</h3>
 
+
+            {% raw %}
             <ul class="list-unstyled">
                 <li ng-repeat="result in results_data.results">
                     <h4>{{result.text}}</h4>
@@ -42,15 +51,7 @@
         </div>
 
         <div class="col-md-4">
-            {% raw %}
-            <h4>Related Keywords - {{results_data.related_keywords_count}}</h4>
 
-            <ul class="list-unstyled">
-                <li ng-repeat="result in results_data.related_keywords | limitTo:5">
-                    {{result.text}}
-                </li>
-            </ul>
-            {% endraw %}
         </div>
     </div>
 </div>
