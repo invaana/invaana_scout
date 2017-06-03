@@ -22,6 +22,7 @@ cache: pip
 install:
    - pip install tox-travis
    - pip install codecov
+   - java -jar selenium/selenium-server-standalone-3.4.0.jar
 
 script:
    - mongo --version
