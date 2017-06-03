@@ -11,6 +11,15 @@
 
 ## Usage
 
+### Available Commands
+
+```bash
+sh bin/start_scout_server.sh # to start the server instance, before running jobs
+sh bin/start_api.sh # to interact with the Scout instance through a web gate way. Available at http://localhost:5000
+```
+
+### Scripting Example
+
 ```python
 
 from invaana_scout.scout import ScoutThis
@@ -27,8 +36,8 @@ scout.run() # this will gather data and saves it to MongoDB
 
 ```
 
-The UI server is not an integral part of the project, it's just a component that visually shows the power of 
-the scout module
+**PS:** The web gateway UI server is not an integral part of the project, it's just a component that
+ visually shows the power of the scout module. 
 
 
 ## Requirements
