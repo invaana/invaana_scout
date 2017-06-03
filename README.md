@@ -1,6 +1,10 @@
 # Invaana Scout
 
 
+[![Build Status](https://travis-ci.org/invaana/invaana_scout.svg?branch=master)](https://travis-ci.org/invaana/invaana_scout)
+[![codecov](https://codecov.io/gh/invaana/invaana_scout/branch/master/graph/badge.svg)](https://codecov.io/gh/invaana/invaana_scout)
+
+
 ![Screenshot](docs/screenshot.png)
 
 
