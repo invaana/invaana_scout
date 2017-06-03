@@ -22,20 +22,21 @@ class ScoutThis(object):
 
     
     """
+ 
+    _SUFFIXES = [ 'tutorials', ]
+    _PREFIXES = [ 'learning', 'Programming with' ]
     
-    def __init__(self, kw=None, browser='bing', max_pages=3, save=True, generate_kws=False):
+    def __init__(self, kw=None, browser='bing', max_pages=3, save=True,
+                 generate_kws=False,
+                 prefixes=_PREFIXES,
+                 suffixes=_SUFFIXES):
         self._KEYWORD = kw
         self._BROWSER = browser
         self._NOW_KEYWORD = kw
         self._MAX_PAGES = max_pages
         self._SAVE = save
         self._GENERATE_KWS = generate_kws
-        self._SUFFIXES = [
-            'tutorials',
-        ]
-        self._PREFIXES = [
-            'learning', 'Programming with'
-        ]
+
         self._GENERATED_KEYWORDS = []
         self._DATA = {
             'results': [],
