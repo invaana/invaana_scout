@@ -27,6 +27,13 @@ def test():
 
 @app.route("/apis/browse/")
 def browse():
+    """
+    To search in a browser
+    Usage:
+        http://localhost:5000/apis/browse/?q=innovation%20centres
+        
+    :return:
+    """
     kw = request.args.get('q', '')
     bing = BrowseBing(kw=kw, max_page=2)
     bing.search()

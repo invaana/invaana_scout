@@ -1,25 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="InvaanaScoutApp">
 <head>
     <meta charset="UTF-8">
     <title>Invaana Scout Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="{{ url_for('static', filename='baseController.js') }}"></script>
 
 </head>
-<body>
+<body ng-controller="baseController">
 
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-8">
             <h1>Welcome to Invaana Scout</h1>
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
+            <form ng-submit="submitQuery()">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="q" placeholder="Search for...">
+                    <span class="input-group-btn">
                     <button class="btn btn-default" type="button">Go!</button>
                   </span>
-            </div><!-- /input-group -->
+                </div><!-- /input-group -->
+            </form>
+        </div>
 
+    </div>
+    <div class="row" ng-if="results_data">
+        <div class="col-md-8" >
+            {% raw %}
+            <h3>Results - {{results_data.results_count}}</h3>
+
+            <ul class="list-unstyled">
+                <li ng-repeat="result in results_data.results">
+                    <h4>{{result.text}}</h4>
+                    <p>{{result.link}}</p>
+                    <hr>
+                </li>
+            </ul>
+            {% endraw %}
+        </div>
+
+        <div class="col-md-4">
+            {% raw %}
+            <h4>Related Keywords - {{results_data.related_keywords_count}}</h4>
+
+            <ul class="list-unstyled">
+                <li ng-repeat="result in results_data.related_keywords | limitTo:5">
+                    {{result.text}}
+                </li>
+            </ul>
+            {% endraw %}
         </div>
     </div>
 </div>

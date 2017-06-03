@@ -40,7 +40,7 @@ class BrowserBase(object):
     _NEXT_PAGE_URL = None
     
     _ITER = 0
-    _ITER_MAX = 5
+    _ITER_MAX = 3
         
     def __init__(self, kw=None, max_page=None):
         """
@@ -141,8 +141,9 @@ class BrowserBase(object):
         results = self._SOUPED_HTML_DATA.cssselect(selector)
         data = []
         for result in results:
+            link =  result.get('href').strip() if result.get('href') else None
             datum = {
-                'link': self._BASE_URL + result.get('href').strip() if result.get('href') else None,
+                'link': link if link.startswith('http') else self._BASE_URL + link,
                 'text': result.text_content().strip() if result.text_content() else None
             }
             data.append(datum)
