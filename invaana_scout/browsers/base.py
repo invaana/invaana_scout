@@ -41,8 +41,10 @@ class BrowserBase(object):
     
     _ITER = 0
     _ITER_MAX = 3
+
+    _DRIVER = None
         
-    def __init__(self, kw=None, max_page=None, method=None):
+    def __init__(self, kw=None, max_page=None, method=None, driver=None):
         """
         Make some quick calculations to proceed with the run
         """
@@ -51,7 +53,10 @@ class BrowserBase(object):
             self._ITER_MAX = max_page
         if method:
             self._DEFAULT_SCRAPE_METHOD = method
-        self._init_browser_instance()
+        if driver is None:
+            self._init_browser_instance()
+        else:
+            self._DRIVER = driver
 
     def _test_config(self):
         """

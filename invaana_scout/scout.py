@@ -1,7 +1,9 @@
 from db import SearchResultLink, SearchEntry
 from browsers import BrowseBing
 from db.utils import get_or_create
-
+import selenium.webdriver as webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import time
 
 class ScoutThis(object):
     """
@@ -48,6 +50,8 @@ class ScoutThis(object):
         }
         if prefixes: self._PREFIXES = prefixes
         if suffixes: self._SUFFIXES = suffixes
+        
+        self._init_browser_instance()
             
     def save(self, data):
         """
@@ -55,7 +59,8 @@ class ScoutThis(object):
         :param data:
         :return:
         """
-        created, entry = get_or_create(SearchEntry, keyword=self._NOW_KEYWORD, browser=self._BROWSER)
+        created, entry = get_or_create(SearchEntry, keyword=self._NOW_KEYWORD)
+        entry.update(browser=self._BROWSER)
         results_mongofied = []
         for result in data['results']:
             created, result_entry = get_or_create(SearchResultLink, title=result['text'], link=result['link'] )
@@ -81,6 +86,10 @@ class ScoutThis(object):
     def data(self):
         return self._DATA
     
+    def _init_browser_instance(self):
+        self._DRIVER = webdriver.Remote(command_executor='http://127.0.0.1:4444/wd/hub',
+                                        desired_capabilities=DesiredCapabilities.CHROME)
+        
     def _generate_keywords(self):
         keywords = []
         for prefix in self._PREFIXES:
@@ -100,7 +109,7 @@ class ScoutThis(object):
         
     def _run(self, kw):
         if self._BROWSER == 'bing':
-            browser = BrowseBing(kw=kw, max_page=self._MAX_PAGES)
+            browser = BrowseBing(kw=kw, max_page=self._MAX_PAGES, driver=self._DRIVER)
             browser.search()
             print "Gathered the data for keyword", kw
             self._append_data(browser.data)
@@ -128,3 +137,6 @@ class ScoutThis(object):
                 self._run(self._NOW_KEYWORD)
         else:
             self._run(self._NOW_KEYWORD)
+            
+    def stop(self):
+        self._DRIVER.close()

@@ -39,6 +39,7 @@ def browse():
     if kw:
         scout_instance = ScoutThis(kw=kw, generate_kws=False)
         scout_instance.run()
+        scout_instance.stop()
         return jsonify(scout_instance.data)
     return {}
 
