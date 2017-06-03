@@ -24,9 +24,10 @@ before_install:
    - sudo apt-get install -y libappindicator1 fonts-liberation
    - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
    - sudo dpkg -i google-chrome*.deb
+   - sudo apt-get install unzip;
+   - wget -O /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/2.29/chromedriver_linux64.zip && sudo unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/;
    - java -jar selenium/selenium-server-standalone-3.4.0.jar  -port 4444 > /dev/null &
-   #- # start your web application and listen on `localhost`
-   #- google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost
+
 
 cache: pip
 
