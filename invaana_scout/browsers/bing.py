@@ -18,6 +18,7 @@ class BrowseBing(BrowserBase):
     _SEARCH_KEYWORDS_CSS_SELECTOR = '.b_rs a'
     _SEARCH_NEXT_QS = '&first='
     _SEARCH_NEXT_CSS_SELECTOR = 'a.sb_pagN'
-    
-    def __init__(self, kw=None, max_page=3):
-        super(BrowseBing, self).__init__(kw=kw, max_page=max_page)
+    _DEFAULT_SCRAPE_METHOD = "selenium"
+
+    def __init__(self, kw=None, max_page=3, method=None):
+        super(BrowseBing, self).__init__(kw=kw, max_page=max_page, method=method)

@@ -19,7 +19,7 @@ class BrowserBase(object):
         
     """
 
-    _AVAILABLE_SCRAPE_METHODS = ['requests', 'selenium']
+    _AVAILABLE_SCRAPE_METHODS = [ 'selenium']
     _DEFAULT_SCRAPE_METHOD = "selenium"
 
     _BASE_URL = None
@@ -42,14 +42,15 @@ class BrowserBase(object):
     _ITER = 0
     _ITER_MAX = 3
         
-    def __init__(self, kw=None, max_page=None):
+    def __init__(self, kw=None, max_page=None, method=None):
         """
         Make some quick calculations to proceed with the run
         """
         self._SEARCH_TERM = kw
         if max_page:
             self._ITER_MAX = max_page
-            
+        if method:
+            self._DEFAULT_SCRAPE_METHOD = method
         self._init_browser_instance()
 
     def _test_config(self):
@@ -73,16 +74,13 @@ class BrowserBase(object):
         """
         self._DRIVER.get(url=self._SEARCH_URL)
         return self._DRIVER.page_source
-    
-    def get_html_requests(self):
-        pass
         
     def get_html(self, method=None):
         if method is None:
             method = self.get_current_method()
         if method == 'selenium':
             return self.get_html_selenium()
-        elif method == 'requests':
+        else:
             raise exceptions.BrowerScrapeMethodNotImplemented('Not implemented')
         
     def dry_run(self):
@@ -171,3 +169,5 @@ class BrowserBase(object):
     def get_related_keywords(self):
         return self._scrape_css_selector(self._SEARCH_KEYWORDS_CSS_SELECTOR)
 
+    def close(self):
+        self._DRIVER.close()

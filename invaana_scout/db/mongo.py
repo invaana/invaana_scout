@@ -12,7 +12,7 @@ class SearchResultLink(Document):
         'index_drop_dups': True,
         'indexes': [
             'title',
-        ]
+        ],
     }
 
 
