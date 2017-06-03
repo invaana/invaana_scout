@@ -24,10 +24,12 @@
                 </div><!-- /input-group -->
             </form>
             {% raw %}
+
+            <p ng-if="is_searching" class="text-muted">Searching in Progress...</p>
             <ul class="list-inline" ng-if="results_data.related_keywords_count">
                 <li><strong>Related:</strong></li>
                 <li ng-repeat="result in results_data.related_keywords | limitTo:5" class="text-muted">
-                    {{result.text}}
+                    <a   ng-click="addNewQuery(result.text)">{{result.text}}</a>
                 </li>
             </ul>
             <p ng-if="results_data" class="text-muted small">Gathered {{results_data.results_count}} results</p>
