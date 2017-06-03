@@ -77,7 +77,10 @@ class BrowserBase(object):
         https://stackoverflow.com/a/18102579/3448851
         :return:
         """
-        self._DRIVER.get(url=self._SEARCH_URL)
+        if self._NEXT_PAGE_URL:
+            self._DRIVER.get(self._NEXT_PAGE_URL)
+        else:
+            self._DRIVER.get(self._SEARCH_URL)
         return self._DRIVER.page_source
         
     def get_html(self, method=None):

@@ -37,7 +37,7 @@ def browse():
     """
     kw = request.args.get('q', None)
     if kw:
-        scout_instance = ScoutThis(kw=kw, generate_kws=False)
+        scout_instance = ScoutThis(kw=kw, max_pages=2, generate_kws=False)
         scout_instance.run()
         scout_instance.stop()
         return jsonify(scout_instance.data)
