@@ -28,5 +28,21 @@ angular.module('InvaanaScoutApp', [])
     }
 
 
+    $scope.getRecentQueryList = function(){
+        $http.get('http://localhost:5000/apis/searches/', {
+            params:  {t: 'recent'},
+         })
+        .then(function(response) {
+            console.log(response)
+            $scope.recent_searches = response.data;
+            // Request completed successfully
+        }, function(x) {
+            $scope.is_searching = false;
+            // Request error
+        });
+    };
+
+    $scope.getRecentQueryList();
+
 
   });

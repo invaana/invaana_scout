@@ -11,9 +11,9 @@
 </head>
 <body ng-controller="baseController">
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <h1>Welcome to Invaana Scout</h1>
             <form ng-submit="submitQuery()">
                 <div class="input-group">
@@ -35,10 +35,19 @@
             <p ng-if="results_data" class="text-muted small">Gathered {{results_data.results_count}} results</p>
             {% endraw %}
         </div>
+        <div class="col-md-6">
+            <!--{% raw %}-->
+            <!--<ul class="list-inline">-->
+                <!--<li ng-repeat="kw in recent_searches">-->
+                    <!--<a   ng-click="addNewQuery(kw.keyword)">{{kw.keyword}}</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+            <!--{% endraw %}-->
+        </div>
 
     </div>
     <div class="row" ng-if="results_data">
-        <div class="col-md-8" >
+        <div class="col-md-6" >
 
 
             {% raw %}
@@ -46,15 +55,13 @@
                 <li ng-repeat="result in results_data.results">
                     <h4>{{result.text}}</h4>
                     <p>{{result.link}}</p>
-                    <hr>
+
                 </li>
             </ul>
             {% endraw %}
         </div>
 
-        <div class="col-md-4">
 
-        </div>
     </div>
 </div>
 

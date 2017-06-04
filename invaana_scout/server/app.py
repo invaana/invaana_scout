@@ -3,6 +3,7 @@ CURRENT_PATH = os.path.dirname(os.path.realpath(__file__))
 SCOUT_PATH = os.path.join(CURRENT_PATH, '..')
 sys.path.append(SCOUT_PATH)
 from flask import Flask, render_template, request, jsonify
+from db.mongo import SearchEntry
 from flask_mongoengine import MongoEngine
 from browsers.bing import BrowseBing
 from scout import ScoutThis
@@ -42,6 +43,22 @@ def browse():
         scout_instance.stop()
         return jsonify(scout_instance.data)
     return {}
+
+
+@app.route('/apis/searches/')
+def search_keywords():
+    """
+    This will return the search keywords
+    
+    :return:
+    """
+    filter_type = request.args.get('t', None)
+    fields = ['keyword', 'created_at']
+    if filter_type:
+        keywords = SearchEntry.objects.all().only(*fields)[:10]
+    else:
+        keywords = SearchEntry.objects.all().only(*fields)
+    return jsonify(keywords)
 
 if __name__ == "__main__":
     app.run(debug=True)
